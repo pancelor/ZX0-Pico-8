@@ -1,7 +1,6 @@
 pico-8 cartridge // http://www.pico-8.com
 version 43
 __lua__
--- zx0 decompresser
 
 function zx0_decompress(
  get_input_byte,
