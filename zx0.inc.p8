@@ -91,8 +91,7 @@ function zx0_decompress(
         last_offset = msb * 128 - lsb
         backtrack = true
 
-        local n = read_var(0) + 1
-        copy_bytes(n)
+        copy_bytes(read_var(0) + 1)
 
         if read_bit() == 0 then
             return copy_literals()
