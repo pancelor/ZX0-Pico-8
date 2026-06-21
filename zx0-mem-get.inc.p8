@@ -3,7 +3,7 @@ version 43
 __lua__
 
 function mem_get(start_addr)
-    return function(i)
-        return peek(start_addr+i)
-    end
+	return function(i)
+		return peek(start_addr+i)
+	end
 end
