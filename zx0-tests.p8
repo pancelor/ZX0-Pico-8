@@ -15,14 +15,13 @@ __lua__
 #include zx0-mem-set.inc.p8
 
 
--- input from strings
-
-#include zx0-str-get.inc.p8
-
-
 -- input from tables
 
 #include zx0-table-get.inc.p8
+
+-- output to string vars
+
+#include zx0-strvar-io.inc.p8
 
 -->8
 -- zx0 tests
@@ -32,25 +31,16 @@ function zx0_test(
 	compressed
 )
  return function()
-  local s = ""
+  local t = {s=""}
   
-	local function s_get(i)
-	 return ord(s,i+1)
-	end
-
-	local function s_set(i,v)
-		assert(i == #s)
-			s = s .. chr(v)
-		end
-
 		zx0_decompress(
 			table_get(compressed),
-			s_get,
-			s_set)
+			strvar_get(t,"s"),
+			strvar_set(t,"s"))
 			
 		assert_eq {
 			expected = plain,
-			actual = s
+			actual = t.s
 		}
 		
 		printh(" plain:      " 
