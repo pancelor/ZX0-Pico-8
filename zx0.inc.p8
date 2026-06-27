@@ -7,13 +7,7 @@ function zx0_decompress(
 	get_output_byte,
 	set_output_byte
 )
-	local last_byte = 0
-	local backtrack = false
-	local bit_mask = 0
-	local bit_value
-	local last_offset = 1
-	local input_count = 0
-	local output_count = 0
+	local last_offset, last_byte, bit_mask, input_count, output_count, backtrack, bit_value, msb = unpack(split"1,0,0,0,0")
 
 	local function read_byte()
 		last_byte = get_input_byte(input_count)
@@ -28,8 +22,7 @@ function zx0_decompress(
 		else
 			bit_mask \= 2
 			if bit_mask == 0 then
-				bit_value = read_byte()
-				bit_mask = 128
+				bit_value, bit_mask = read_byte(), 128
 			end
 		end
 
@@ -58,7 +51,6 @@ function zx0_decompress(
 		end
 	end
 
-	local msb
 	::copy_literals::
 		for _ = 1,read_var(0) do
 			write_byte(read_byte())
